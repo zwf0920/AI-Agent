@@ -106,14 +106,17 @@ class SimpleAgent:
             # 这个工具既可以读某个文件，也可以读取目录下所有文件名。
             if "." in instruction:
                 return self.tools.read_text(instruction)
+                #return self.tools.read_text(args)
             else:
                 return self.tools.read_catalog(instruction)
+                #return self.tools.read_catalog(args)
         elif tool_name == "找出工具":
             #和上面一样 用笨办法去除指令中的中文
             instruction=instruction.replace("找出 ", "")
             
             temp=instruction.split("里的")
-            return self.tools.query(temp[0].replace(" ", ""),temp[1].replace(" ", ""))
+            return self.tools.query(temp[0].replace(" ", ""),temp[1].replace(" ", ""))#排除空格干扰
+            #return self.tools.query(args[0].replace(" ", ""),args[1].replace(" ", ""))
         elif tool_name == "生成工具":
             return "[系统] 没有生成工具，随机生成一份简单的报告吧。"
         elif tool_name == "无":
@@ -128,7 +131,7 @@ if __name__ == "__main__":
     
     # 测试几个不同的任务
     test_tasks = [
-        "生成一份报告",
+        "生成一份报告"
         "找出test.py里的TODO",
         "读取test1",
         "读取test.py",
